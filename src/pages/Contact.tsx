@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Mail, Phone, MapPin, Send } from "lucide-react";
+import { Mail, Phone, MapPin, Send, Loader2 } from "lucide-react";
+import { toast } from "sonner";
 import Layout from "@/components/layout/Layout";
 import SectionHeader from "@/components/ui/SectionHeader";
+import { submitContactMessage } from "@/lib/api";
 
 const fadeInUp = {
   initial: { opacity: 0, y: 30 },
@@ -13,13 +15,20 @@ const fadeInUp = {
 
 const Contact = () => {
   const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
+  const [submitting, setSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Replace with API call: fetch("/api/contact", { method: "POST", body: JSON.stringify(form) })
-    console.log("Form submitted:", form);
-    alert("Message envoyé ! Nous vous répondrons bientôt.");
-    setForm({ name: "", email: "", subject: "", message: "" });
+    setSubmitting(true);
+    try {
+      await submitContactMessage(form);
+      toast.success("Message envoyé ! Nous vous répondrons bientôt.");
+      setForm({ name: "", email: "", subject: "", message: "" });
+    } catch {
+      toast.error("Erreur lors de l'envoi. Veuillez réessayer.");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const inputClass =
@@ -36,7 +45,6 @@ const Contact = () => {
           />
 
           <div className="grid lg:grid-cols-3 gap-12 max-w-5xl mx-auto">
-            {/* Info */}
             <motion.div {...fadeInUp} className="space-y-8">
               {[
                 { icon: Mail, label: "Email", value: "contact@pasteur-ministry.com" },
@@ -55,7 +63,6 @@ const Contact = () => {
               ))}
             </motion.div>
 
-            {/* Form */}
             <motion.form
               {...fadeInUp}
               transition={{ delay: 0.2, duration: 0.5 }}
@@ -63,45 +70,18 @@ const Contact = () => {
               className="lg:col-span-2 space-y-5"
             >
               <div className="grid md:grid-cols-2 gap-5">
-                <input
-                  type="text"
-                  placeholder="Votre nom"
-                  required
-                  value={form.name}
-                  onChange={(e) => setForm({ ...form, name: e.target.value })}
-                  className={inputClass}
-                />
-                <input
-                  type="email"
-                  placeholder="Votre email"
-                  required
-                  value={form.email}
-                  onChange={(e) => setForm({ ...form, email: e.target.value })}
-                  className={inputClass}
-                />
+                <input type="text" placeholder="Votre nom" required value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} className={inputClass} />
+                <input type="email" placeholder="Votre email" required value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} className={inputClass} />
               </div>
-              <input
-                type="text"
-                placeholder="Sujet"
-                required
-                value={form.subject}
-                onChange={(e) => setForm({ ...form, subject: e.target.value })}
-                className={inputClass}
-              />
-              <textarea
-                placeholder="Votre message"
-                rows={6}
-                required
-                value={form.message}
-                onChange={(e) => setForm({ ...form, message: e.target.value })}
-                className={`${inputClass} resize-none`}
-              />
+              <input type="text" placeholder="Sujet" required value={form.subject} onChange={(e) => setForm({ ...form, subject: e.target.value })} className={inputClass} />
+              <textarea placeholder="Votre message" rows={6} required value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} className={`${inputClass} resize-none`} />
               <button
                 type="submit"
-                className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-lg font-body font-semibold text-sm hover:bg-primary/90 transition-colors"
+                disabled={submitting}
+                className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-lg font-body font-semibold text-sm hover:bg-primary/90 transition-colors disabled:opacity-50"
               >
-                <Send size={16} />
-                Envoyer le Message
+                {submitting ? <Loader2 size={16} className="animate-spin" /> : <Send size={16} />}
+                {submitting ? "Envoi en cours..." : "Envoyer le Message"}
               </button>
             </motion.form>
           </div>

@@ -1,9 +1,9 @@
-import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Calendar, Tag } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
 import Layout from "@/components/layout/Layout";
 import SectionHeader from "@/components/ui/SectionHeader";
-import { mockNews, type NewsArticle } from "@/lib/api";
+import { fetchArticles, type NewsArticle } from "@/lib/api";
 
 const fadeInUp = {
   initial: { opacity: 0, y: 30 },
@@ -13,18 +13,10 @@ const fadeInUp = {
 };
 
 const News = () => {
-  const [news, setNews] = useState<NewsArticle[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    // Simulate API fetch — replace with real API call
-    // Example: fetchAPI<NewsArticle[]>("/api/news").then(setNews)
-    const timer = setTimeout(() => {
-      setNews(mockNews);
-      setLoading(false);
-    }, 600);
-    return () => clearTimeout(timer);
-  }, []);
+  const { data: news = [], isLoading } = useQuery<NewsArticle[]>({
+    queryKey: ["articles"],
+    queryFn: fetchArticles,
+  });
 
   return (
     <Layout>
@@ -36,7 +28,7 @@ const News = () => {
             description="Restez informé des activités et événements du ministère."
           />
 
-          {loading ? (
+          {isLoading ? (
             <div className="grid md:grid-cols-2 gap-8">
               {[1, 2, 3, 4].map((i) => (
                 <div key={i} className="rounded-lg border border-border p-6 animate-pulse">
@@ -47,6 +39,8 @@ const News = () => {
                 </div>
               ))}
             </div>
+          ) : news.length === 0 ? (
+            <p className="text-center text-muted-foreground font-body">Aucune actualité pour le moment.</p>
           ) : (
             <div className="grid md:grid-cols-2 gap-8">
               {news.map((article, i) => (
@@ -63,7 +57,7 @@ const News = () => {
                     </span>
                     <span className="flex items-center gap-1.5 text-xs text-muted-foreground font-body">
                       <Calendar size={10} />
-                      {new Date(article.date).toLocaleDateString("fr-FR", {
+                      {new Date(article.created_at).toLocaleDateString("fr-FR", {
                         day: "numeric",
                         month: "long",
                         year: "numeric",
