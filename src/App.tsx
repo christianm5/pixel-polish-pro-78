@@ -14,6 +14,11 @@ import Donate from "./pages/Donate";
 import Contact from "./pages/Contact";
 import Auth from "./pages/Auth";
 import NotFound from "./pages/NotFound";
+import Dashboard from "./pages/admin/Dashboard";
+import AdminArticles from "./pages/admin/AdminArticles";
+import AdminMedia from "./pages/admin/AdminMedia";
+import AdminBooks from "./pages/admin/AdminBooks";
+import AdminUsers from "./pages/admin/AdminUsers";
 
 const queryClient = new QueryClient();
 
@@ -34,6 +39,12 @@ const App = () => (
             <Route path="/don" element={<Donate />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/connexion" element={<Auth />} />
+            {/* Admin routes */}
+            <Route path="/admin" element={<Dashboard />} />
+            <Route path="/admin/articles" element={<AdminArticles />} />
+            <Route path="/admin/medias" element={<AdminMedia />} />
+            <Route path="/admin/livres" element={<AdminBooks />} />
+            <Route path="/admin/utilisateurs" element={<AdminUsers />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
