@@ -19,6 +19,7 @@ import AdminArticles from "./pages/admin/AdminArticles";
 import AdminMedia from "./pages/admin/AdminMedia";
 import AdminBooks from "./pages/admin/AdminBooks";
 import AdminUsers from "./pages/admin/AdminUsers";
+import AdminCMS from "./pages/admin/AdminCMS";
 
 const queryClient = new QueryClient();
 
@@ -41,6 +42,7 @@ const App = () => (
             <Route path="/connexion" element={<Auth />} />
             {/* Admin routes */}
             <Route path="/admin" element={<Dashboard />} />
+            <Route path="/admin/contenu" element={<AdminCMS />} />
             <Route path="/admin/articles" element={<AdminArticles />} />
             <Route path="/admin/medias" element={<AdminMedia />} />
             <Route path="/admin/livres" element={<AdminBooks />} />

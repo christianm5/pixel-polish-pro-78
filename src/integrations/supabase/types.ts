@@ -176,6 +176,39 @@ export type Database = {
         }
         Relationships: []
       }
+      page_sections: {
+        Row: {
+          created_at: string
+          id: string
+          page: string
+          section_key: string
+          sort_order: number
+          title: string | null
+          updated_at: string
+          visible: boolean
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          page: string
+          section_key: string
+          sort_order?: number
+          title?: string | null
+          updated_at?: string
+          visible?: boolean
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          page?: string
+          section_key?: string
+          sort_order?: number
+          title?: string | null
+          updated_at?: string
+          visible?: boolean
+        }
+        Relationships: []
+      }
       pastor_info: {
         Row: {
           id: string
@@ -217,6 +250,69 @@ export type Database = {
           created_at?: string
           full_name?: string | null
           id?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      site_content: {
+        Row: {
+          created_at: string
+          field: string
+          id: string
+          page: string
+          section: string
+          updated_at: string
+          value: string | null
+        }
+        Insert: {
+          created_at?: string
+          field: string
+          id?: string
+          page: string
+          section: string
+          updated_at?: string
+          value?: string | null
+        }
+        Update: {
+          created_at?: string
+          field?: string
+          id?: string
+          page?: string
+          section?: string
+          updated_at?: string
+          value?: string | null
+        }
+        Relationships: []
+      }
+      site_images: {
+        Row: {
+          alt_text: string | null
+          created_at: string
+          id: string
+          image_url: string
+          page: string
+          section: string
+          sort_order: number
+          updated_at: string
+        }
+        Insert: {
+          alt_text?: string | null
+          created_at?: string
+          id?: string
+          image_url: string
+          page: string
+          section: string
+          sort_order?: number
+          updated_at?: string
+        }
+        Update: {
+          alt_text?: string | null
+          created_at?: string
+          id?: string
+          image_url?: string
+          page?: string
+          section?: string
+          sort_order?: number
           updated_at?: string
         }
         Relationships: []

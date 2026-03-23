@@ -1,4 +1,4 @@
-import { LayoutDashboard, FileText, Film, BookOpen, Users, LogOut, Home } from "lucide-react";
+import { LayoutDashboard, FileText, Film, BookOpen, Users, LogOut, Home, Settings } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
@@ -17,6 +17,7 @@ import {
 
 const menuItems = [
   { title: "Tableau de bord", url: "/admin", icon: LayoutDashboard },
+  { title: "Contenu CMS", url: "/admin/contenu", icon: Settings },
   { title: "Articles", url: "/admin/articles", icon: FileText },
   { title: "Médias", url: "/admin/medias", icon: Film },
   { title: "Livres", url: "/admin/livres", icon: BookOpen },
