@@ -19,6 +19,7 @@ import AdminArticles from "./pages/admin/AdminArticles";
 import AdminMedia from "./pages/admin/AdminMedia";
 import AdminBooks from "./pages/admin/AdminBooks";
 import AdminUsers from "./pages/admin/AdminUsers";
+import AdminCMS from "./pages/admin/AdminCMS";
 
 const queryClient = new QueryClient();
 
