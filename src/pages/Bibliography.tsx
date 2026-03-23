@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import Layout from "@/components/layout/Layout";
 import SectionHeader from "@/components/ui/SectionHeader";
 import { fetchBooks, type Book } from "@/lib/api";
+import { useSiteContent } from "@/hooks/useSiteContent";
 
 const fadeInUp = {
   initial: { opacity: 0, y: 30 },
@@ -13,19 +14,17 @@ const fadeInUp = {
 };
 
 const Bibliography = () => {
-  const { data: books = [], isLoading } = useQuery<Book[]>({
-    queryKey: ["books"],
-    queryFn: fetchBooks,
-  });
+  const { get } = useSiteContent("bibliography");
+  const { data: books = [], isLoading } = useQuery<Book[]>({ queryKey: ["books"], queryFn: fetchBooks });
 
   return (
     <Layout>
       <section className="py-20 lg:py-28">
         <div className="container mx-auto px-4 lg:px-8">
           <SectionHeader
-            subtitle="Bibliographie"
-            title="Ouvrages Publiés"
-            description="Découvrez les livres écrits par le Pasteur pour édifier et inspirer."
+            subtitle={get("header", "subtitle", "Bibliographie")}
+            title={get("header", "title", "Ouvrages Publiés")}
+            description={get("header", "description", "Découvrez les livres écrits par le Pasteur.")}
           />
           {isLoading ? (
             <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
@@ -39,16 +38,12 @@ const Bibliography = () => {
               ))}
             </div>
           ) : books.length === 0 ? (
-            <p className="text-center text-muted-foreground font-body">Aucun ouvrage disponible pour le moment.</p>
+            <p className="text-center text-muted-foreground font-body">Aucun ouvrage disponible.</p>
           ) : (
             <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
               {books.map((book, i) => (
-                <motion.div
-                  key={book.id}
-                  {...fadeInUp}
-                  transition={{ delay: i * 0.15, duration: 0.5 }}
-                  className="group p-6 rounded-lg border border-border bg-card hover:shadow-elevated transition-all duration-300"
-                >
+                <motion.div key={book.id} {...fadeInUp} transition={{ delay: i * 0.15, duration: 0.5 }}
+                  className="group p-6 rounded-lg border border-border bg-card hover:shadow-elevated transition-all duration-300">
                   {book.cover_url ? (
                     <img src={book.cover_url} alt={book.title} className="w-full h-48 rounded-md object-cover mb-6" />
                   ) : (
@@ -57,12 +52,8 @@ const Bibliography = () => {
                     </div>
                   )}
                   <span className="text-xs font-body text-muted-foreground">{book.year}</span>
-                  <h3 className="font-display text-lg font-semibold text-card-foreground mt-1 mb-2 group-hover:text-primary transition-colors">
-                    {book.title}
-                  </h3>
-                  <p className="text-muted-foreground font-body text-sm leading-relaxed">
-                    {book.description}
-                  </p>
+                  <h3 className="font-display text-lg font-semibold text-card-foreground mt-1 mb-2 group-hover:text-primary transition-colors">{book.title}</h3>
+                  <p className="text-muted-foreground font-body text-sm leading-relaxed">{book.description}</p>
                 </motion.div>
               ))}
             </div>
