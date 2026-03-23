@@ -1,4 +1,4 @@
-import { LayoutDashboard, FileText, Film, BookOpen, Users, LogOut, Home } from "lucide-react";
+import { LayoutDashboard, FileText, Film, BookOpen, Users, LogOut, Home, Settings } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
