@@ -70,6 +70,12 @@ const Donate = () => {
                   className="w-full pl-8 pr-4 py-3 rounded-lg border border-border bg-card text-foreground font-body focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all" />
               </div>
             </div>
+            <div>
+              <label className="block text-sm font-body text-muted-foreground mb-2">Pays</label>
+              <input type="text" placeholder="Votre pays" value={country}
+                onChange={(e) => setCountry(e.target.value)}
+                className="w-full px-4 py-3 rounded-lg border border-border bg-card text-foreground font-body focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all" />
+            </div>
             <div className="space-y-4">
               <h3 className="font-display text-lg font-semibold text-foreground">Mode de paiement</h3>
               <div className="grid md:grid-cols-2 gap-4">
