@@ -1,8 +1,9 @@
 import { motion } from "framer-motion";
 import Layout from "@/components/layout/Layout";
 import SectionHeader from "@/components/ui/SectionHeader";
-import pastorPortrait from "@/assets/pastor-portrait.png";
+import pastorPortraitFallback from "@/assets/pastor-portrait.png";
 import { useSiteContent } from "@/hooks/useSiteContent";
+import { useSiteImages } from "@/hooks/useSiteImages";
 
 const fadeInUp = {
   initial: { opacity: 0, y: 30 },
@@ -13,6 +14,9 @@ const fadeInUp = {
 
 const About = () => {
   const { get } = useSiteContent("about");
+  const { getImage, getAlt } = useSiteImages("about");
+
+  const pastorPortrait = getImage("pastor_portrait", pastorPortraitFallback);
 
   const timeline = [
     { year: "2000", event: get("timeline_2000", "event", "Début du ministère pastoral") },
@@ -36,7 +40,7 @@ const About = () => {
         <div className="container mx-auto px-4 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <motion.div {...fadeInUp}>
-              <img src={pastorPortrait} alt="Pasteur" className="w-64 mx-auto drop-shadow-xl" />
+              <img src={pastorPortrait} alt={getAlt("pastor_portrait", "Pasteur")} className="w-64 mx-auto drop-shadow-xl" />
             </motion.div>
             <motion.div {...fadeInUp} transition={{ delay: 0.2, duration: 0.6 }} className="space-y-6">
               <span className="text-xs font-semibold uppercase tracking-[0.2em] text-primary font-body">

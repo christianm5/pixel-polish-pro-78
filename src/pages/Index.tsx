@@ -3,10 +3,11 @@ import { Link } from "react-router-dom";
 import { ArrowRight, Heart, BookOpen, Users } from "lucide-react";
 import Layout from "@/components/layout/Layout";
 import SectionHeader from "@/components/ui/SectionHeader";
-import heroBg from "@/assets/hero-bg.jpg";
-import pastorPortrait from "@/assets/pastor-portrait.png";
-import orphanageImg from "@/assets/orphanage.jpg";
+import heroBgFallback from "@/assets/hero-bg.jpg";
+import pastorPortraitFallback from "@/assets/pastor-portrait.png";
+import orphanageImgFallback from "@/assets/orphanage.jpg";
 import { useSiteContent } from "@/hooks/useSiteContent";
+import { useSiteImages } from "@/hooks/useSiteImages";
 
 const fadeInUp = {
   initial: { opacity: 0, y: 30 },
@@ -17,6 +18,11 @@ const fadeInUp = {
 
 const Index = () => {
   const { get } = useSiteContent("home");
+  const { getImage, getAlt } = useSiteImages("home");
+
+  const heroBg = getImage("hero_bg", heroBgFallback);
+  const pastorPortrait = getImage("pastor_portrait", pastorPortraitFallback);
+  const orphanageImg = getImage("orphanage", orphanageImgFallback);
 
   const pillars = [
     { icon: BookOpen, title: get("pillar1", "title", "Prédication"), desc: get("pillar1", "description", "Annoncer la Parole de Dieu avec puissance et conviction.") },
@@ -26,20 +32,14 @@ const Index = () => {
 
   return (
     <Layout>
-      {/* Hero Section */}
       <section className="relative min-h-[90vh] flex items-center overflow-hidden">
         <div className="absolute inset-0">
-          <img src={heroBg} alt="" className="w-full h-full object-cover" />
+          <img src={heroBg} alt={getAlt("hero_bg", "")} className="w-full h-full object-cover" />
           <div className="absolute inset-0 bg-foreground/70" />
         </div>
         <div className="relative container mx-auto px-4 lg:px-8 py-20">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <motion.div
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: "easeOut" }}
-              className="space-y-6"
-            >
+            <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: "easeOut" }} className="space-y-6">
               <span className="inline-block text-xs font-semibold uppercase tracking-[0.25em] text-accent font-body">
                 {get("hero", "subtitle", "Ministère Pastoral")}
               </span>
@@ -61,13 +61,12 @@ const Index = () => {
               </div>
             </motion.div>
             <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.8, delay: 0.2 }} className="hidden lg:flex justify-center">
-              <img src={pastorPortrait} alt="Pasteur" className="w-80 h-auto drop-shadow-2xl" />
+              <img src={pastorPortrait} alt={getAlt("pastor_portrait", "Pasteur")} className="w-80 h-auto drop-shadow-2xl" />
             </motion.div>
           </div>
         </div>
       </section>
 
-      {/* Ministry Pillars */}
       <section className="py-20 lg:py-28">
         <div className="container mx-auto px-4 lg:px-8">
           <SectionHeader
@@ -89,7 +88,6 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Orphanage Highlight */}
       <section className="py-20 lg:py-28 bg-secondary">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -109,14 +107,13 @@ const Index = () => {
             </motion.div>
             <motion.div {...fadeInUp} transition={{ ...fadeInUp.transition, delay: 0.2 }} className="order-1 lg:order-2">
               <div className="rounded-lg overflow-hidden shadow-card">
-                <img src={orphanageImg} alt="Orphelinat" className="w-full h-72 lg:h-96 object-cover" />
+                <img src={orphanageImg} alt={getAlt("orphanage", "Orphelinat")} className="w-full h-72 lg:h-96 object-cover" />
               </div>
             </motion.div>
           </div>
         </div>
       </section>
 
-      {/* CTA */}
       <section className="py-20 lg:py-28 bg-hero-gradient text-primary-foreground">
         <div className="container mx-auto px-4 lg:px-8 text-center">
           <motion.div {...fadeInUp} className="max-w-2xl mx-auto space-y-6">

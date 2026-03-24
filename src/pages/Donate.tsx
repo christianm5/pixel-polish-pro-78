@@ -20,6 +20,7 @@ const Donate = () => {
   const [selectedAmount, setSelectedAmount] = useState<number | null>(null);
   const [customAmount, setCustomAmount] = useState("");
   const [paymentMethod, setPaymentMethod] = useState<string | null>(null);
+  const [country, setCountry] = useState("");
   const [submitting, setSubmitting] = useState(false);
 
   const finalAmount = selectedAmount ?? (customAmount ? parseFloat(customAmount) : 0);
