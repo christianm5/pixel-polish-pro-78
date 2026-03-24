@@ -82,30 +82,36 @@ export type Database = {
       }
       contact_messages: {
         Row: {
+          admin_reply: string | null
           created_at: string
           email: string
           id: string
           message: string
           name: string
           read: boolean
+          replied_at: string | null
           subject: string
         }
         Insert: {
+          admin_reply?: string | null
           created_at?: string
           email: string
           id?: string
           message: string
           name: string
           read?: boolean
+          replied_at?: string | null
           subject: string
         }
         Update: {
+          admin_reply?: string | null
           created_at?: string
           email?: string
           id?: string
           message?: string
           name?: string
           read?: boolean
+          replied_at?: string | null
           subject?: string
         }
         Relationships: []
@@ -113,6 +119,7 @@ export type Database = {
       donations: {
         Row: {
           amount: number
+          country: string | null
           created_at: string
           currency: string
           donor_email: string | null
@@ -124,6 +131,7 @@ export type Database = {
         }
         Insert: {
           amount: number
+          country?: string | null
           created_at?: string
           currency?: string
           donor_email?: string | null
@@ -135,6 +143,7 @@ export type Database = {
         }
         Update: {
           amount?: number
+          country?: string | null
           created_at?: string
           currency?: string
           donor_email?: string | null
