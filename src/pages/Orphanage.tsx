@@ -1,9 +1,10 @@
 import { motion } from "framer-motion";
 import { Heart, Users, GraduationCap, Utensils } from "lucide-react";
 import Layout from "@/components/layout/Layout";
-import orphanageImg from "@/assets/orphanage.jpg";
+import orphanageImgFallback from "@/assets/orphanage.jpg";
 import { Link } from "react-router-dom";
 import { useSiteContent } from "@/hooks/useSiteContent";
+import { useSiteImages } from "@/hooks/useSiteImages";
 
 const fadeInUp = {
   initial: { opacity: 0, y: 30 },
@@ -14,6 +15,9 @@ const fadeInUp = {
 
 const Orphanage = () => {
   const { get } = useSiteContent("orphanage");
+  const { getImage, getAlt } = useSiteImages("orphanage");
+
+  const orphanageImg = getImage("hero", orphanageImgFallback);
 
   const stats = [
     { icon: Users, value: get("stat1", "value", "120+"), label: get("stat1", "label", "Enfants accueillis") },
@@ -26,7 +30,7 @@ const Orphanage = () => {
     <Layout>
       <section className="relative py-20 lg:py-28 overflow-hidden">
         <div className="absolute inset-0">
-          <img src={orphanageImg} alt="" className="w-full h-full object-cover" />
+          <img src={orphanageImg} alt={getAlt("hero", "")} className="w-full h-full object-cover" />
           <div className="absolute inset-0 bg-foreground/60" />
         </div>
         <div className="relative container mx-auto px-4 lg:px-8 text-center">
@@ -65,7 +69,7 @@ const Orphanage = () => {
             <p>{get("content", "paragraph2", "Nous croyons que chaque enfant est un don de Dieu.")}</p>
             <div className="pt-6">
               <Link to="/don" className="inline-flex items-center gap-2 px-6 py-3 bg-primary rounded-md text-primary-foreground font-semibold text-sm hover:bg-primary/90 transition-colors">
-                <Heart size={16} /> Soutenir l'Orphelinat
+                <Heart size={16} /> {get("content", "cta", "Soutenir l'Orphelinat")}
               </Link>
             </div>
           </motion.div>

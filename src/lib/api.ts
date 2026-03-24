@@ -43,6 +43,7 @@ export interface Donation {
   amount: number;
   currency: string;
   payment_method: string | null;
+  country?: string | null;
 }
 
 // API functions

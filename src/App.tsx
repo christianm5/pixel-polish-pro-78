@@ -20,6 +20,10 @@ import AdminMedia from "./pages/admin/AdminMedia";
 import AdminBooks from "./pages/admin/AdminBooks";
 import AdminUsers from "./pages/admin/AdminUsers";
 import AdminCMS from "./pages/admin/AdminCMS";
+import AdminMessages from "./pages/admin/AdminMessages";
+import AdminDonations from "./pages/admin/AdminDonations";
+import AdminImages from "./pages/admin/AdminImages";
+import AdminSections from "./pages/admin/AdminSections";
 
 const queryClient = new QueryClient();
 
@@ -43,9 +47,13 @@ const App = () => (
             {/* Admin routes */}
             <Route path="/admin" element={<Dashboard />} />
             <Route path="/admin/contenu" element={<AdminCMS />} />
+            <Route path="/admin/images" element={<AdminImages />} />
+            <Route path="/admin/sections" element={<AdminSections />} />
             <Route path="/admin/articles" element={<AdminArticles />} />
             <Route path="/admin/medias" element={<AdminMedia />} />
             <Route path="/admin/livres" element={<AdminBooks />} />
+            <Route path="/admin/messages" element={<AdminMessages />} />
+            <Route path="/admin/dons" element={<AdminDonations />} />
             <Route path="/admin/utilisateurs" element={<AdminUsers />} />
             <Route path="*" element={<NotFound />} />
           </Routes>

@@ -20,6 +20,7 @@ const Donate = () => {
   const [selectedAmount, setSelectedAmount] = useState<number | null>(null);
   const [customAmount, setCustomAmount] = useState("");
   const [paymentMethod, setPaymentMethod] = useState<string | null>(null);
+  const [country, setCountry] = useState("");
   const [submitting, setSubmitting] = useState(false);
 
   const finalAmount = selectedAmount ?? (customAmount ? parseFloat(customAmount) : 0);
@@ -29,9 +30,9 @@ const Donate = () => {
     if (!paymentMethod) { toast.error("Veuillez choisir un mode de paiement."); return; }
     setSubmitting(true);
     try {
-      await submitDonation({ donor_name: null, donor_email: null, amount: finalAmount, currency: "USD", payment_method: paymentMethod });
+      await submitDonation({ donor_name: null, donor_email: null, amount: finalAmount, currency: "USD", payment_method: paymentMethod, country: country || null });
       toast.success("Merci pour votre don ! Que Dieu vous bénisse.");
-      setSelectedAmount(null); setCustomAmount(""); setPaymentMethod(null);
+      setSelectedAmount(null); setCustomAmount(""); setPaymentMethod(null); setCountry("");
     } catch { toast.error("Erreur lors de l'envoi."); }
     finally { setSubmitting(false); }
   };
@@ -68,6 +69,12 @@ const Donate = () => {
                   onChange={(e) => { setCustomAmount(e.target.value); setSelectedAmount(null); }}
                   className="w-full pl-8 pr-4 py-3 rounded-lg border border-border bg-card text-foreground font-body focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all" />
               </div>
+            </div>
+            <div>
+              <label className="block text-sm font-body text-muted-foreground mb-2">Pays</label>
+              <input type="text" placeholder="Votre pays" value={country}
+                onChange={(e) => setCountry(e.target.value)}
+                className="w-full px-4 py-3 rounded-lg border border-border bg-card text-foreground font-body focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all" />
             </div>
             <div className="space-y-4">
               <h3 className="font-display text-lg font-semibold text-foreground">Mode de paiement</h3>
