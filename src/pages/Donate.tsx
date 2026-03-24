@@ -30,9 +30,9 @@ const Donate = () => {
     if (!paymentMethod) { toast.error("Veuillez choisir un mode de paiement."); return; }
     setSubmitting(true);
     try {
-      await submitDonation({ donor_name: null, donor_email: null, amount: finalAmount, currency: "USD", payment_method: paymentMethod });
+      await submitDonation({ donor_name: null, donor_email: null, amount: finalAmount, currency: "USD", payment_method: paymentMethod, country: country || null });
       toast.success("Merci pour votre don ! Que Dieu vous bénisse.");
-      setSelectedAmount(null); setCustomAmount(""); setPaymentMethod(null);
+      setSelectedAmount(null); setCustomAmount(""); setPaymentMethod(null); setCountry("");
     } catch { toast.error("Erreur lors de l'envoi."); }
     finally { setSubmitting(false); }
   };
