@@ -1,6 +1,6 @@
-import { LayoutDashboard, FileText, Film, BookOpen, Users, LogOut, Home, Settings } from "lucide-react";
+import { LayoutDashboard, FileText, Film, BookOpen, Users, LogOut, Home, Settings, Mail, Heart, Image, Layers } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import {
   Sidebar,
@@ -18,16 +18,19 @@ import {
 const menuItems = [
   { title: "Tableau de bord", url: "/admin", icon: LayoutDashboard },
   { title: "Contenu CMS", url: "/admin/contenu", icon: Settings },
+  { title: "Images", url: "/admin/images", icon: Image },
+  { title: "Sections", url: "/admin/sections", icon: Layers },
   { title: "Articles", url: "/admin/articles", icon: FileText },
   { title: "Médias", url: "/admin/medias", icon: Film },
   { title: "Livres", url: "/admin/livres", icon: BookOpen },
+  { title: "Messages", url: "/admin/messages", icon: Mail },
+  { title: "Dons", url: "/admin/dons", icon: Heart },
   { title: "Utilisateurs", url: "/admin/utilisateurs", icon: Users },
 ];
 
 export function AdminSidebar() {
   const { state } = useSidebar();
   const collapsed = state === "collapsed";
-  const location = useLocation();
   const navigate = useNavigate();
   const { signOut } = useAuth();
 
