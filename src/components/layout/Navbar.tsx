@@ -18,7 +18,7 @@ const navLinks = [
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
-  const { get } = useSiteContent("global");
+  const { get } = useSiteContent("mondial");
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-background/80 border-b border-border">
@@ -27,11 +27,11 @@ const Navbar = () => {
           <Link to="/" className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center">
               <span className="text-primary-foreground font-display font-bold text-lg">
-                {get("navbar", "brand_initial", "P")}
+                {get("barre de navigation", "initiale de la marque", "P")}
               </span>
             </div>
             <span className="font-display text-lg font-semibold text-foreground hidden sm:block">
-              {get("navbar", "brand_name", "Pasteur Ministry")}
+              {get("barre de navigation", "nom_de_marque", "Pasteur Ministry")}
             </span>
           </Link>
 
