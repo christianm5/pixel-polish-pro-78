@@ -25,11 +25,19 @@ const Navbar = () => {
       <div className="container mx-auto px-4 lg:px-8">
         <div className="flex items-center justify-between h-16 lg:h-20">
           <Link to="/" className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center">
-              <span className="text-primary-foreground font-display font-bold text-lg">
-                {get("barre de navigation", "initiale de la marque", "P")}
-              </span>
-            </div>
+            {get("barre de navigation", "logo_url", "") ? (
+              <img
+                src={get("barre de navigation", "logo_url", "")}
+                alt="Logo"
+                className="w-10 h-10 rounded-full object-cover"
+              />
+            ) : (
+              <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center">
+                <span className="text-primary-foreground font-display font-bold text-lg">
+                  {get("barre de navigation", "initiale de la marque", "P")}
+                </span>
+              </div>
+            )}
             <span className="font-display text-lg font-semibold text-foreground hidden sm:block">
               {get("barre de navigation", "nom_de_marque", "Pasteur Ministry")}
             </span>
