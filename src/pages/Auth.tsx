@@ -22,7 +22,7 @@ const Auth = () => {
       if (isLogin) {
         await signIn(email, password);
         toast.success("Connexion réussie !");
-        navigate("/");
+        navigate("/admin");
       } else {
         await signUp(email, password, fullName);
         toast.success("Inscription réussie ! Vérifiez votre email pour confirmer votre compte.");
