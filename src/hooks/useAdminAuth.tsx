@@ -18,12 +18,17 @@ export function useAdminAuth() {
     }
 
     const checkRoles = async () => {
-      const { data } = await supabase
+      console.log("Checking roles for user:", user.id);
+      const { data, error } = await supabase
         .from("user_roles")
         .select("role")
         .eq("user_id", user.id);
-
+      
+      console.log("Roles data:", data);
+      console.log("Roles error:", error);
+      
       const roles = (data ?? []).map((r) => r.role);
+      console.log("Roles:", roles);
       setIsAdmin(roles.includes("admin"));
       setIsEditor(roles.includes("editor"));
       setLoading(false);
