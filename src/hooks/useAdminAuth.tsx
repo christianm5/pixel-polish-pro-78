@@ -18,19 +18,19 @@ export function useAdminAuth() {
     }
 
     const checkRoles = async () => {
-      console.log("Checking roles for user:", user.id);
+      // Utiliser profiles au lieu de user_roles
       const { data, error } = await supabase
-        .from("user_roles")
+        .from("profiles")
         .select("role")
-        .eq("user_id", user.id);
-      
-      console.log("Roles data:", data);
-      console.log("Roles error:", error);
-      
-      const roles = (data ?? []).map((r) => r.role);
-      console.log("Roles:", roles);
-      setIsAdmin(roles.includes("admin"));
-      setIsEditor(roles.includes("editor"));
+        .eq("id", user.id)
+        .single();
+
+      console.log("Profile data:", data);
+      console.log("Profile error:", error);
+
+      const role = data?.role ?? "";
+      setIsAdmin(role === "admin");
+      setIsEditor(role === "editor");
       setLoading(false);
     };
 
